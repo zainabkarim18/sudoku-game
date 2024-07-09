@@ -13,7 +13,18 @@ let boardEsay = [
     [4, 2, 0, 0, 5, 8, 0, 3, 0],
     [0, 0, 0, 0, 3, 2, 8, 7, 6],
     [6, 0, 0, 0, 0, 7, 0, 4, 0]
+]
 
+let boardEasySolution = [
+    [1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [5, 9, 8, 3, 0, 4, 6, 2, 0],
+    [7, 6, 4, 1, 0, 0, 3, 8, 0],
+    [8, 0, 1, 2, 0, 6, 4, 0, 0],
+    [0, 4, 0, 0, 0, 1, 2, 0, 0],
+    [0, 5, 6, 7, 0, 0, 0, 0, 0],
+    [4, 2, 0, 0, 5, 8, 0, 3, 0],
+    [0, 0, 0, 0, 3, 2, 8, 7, 6],
+    [6, 0, 0, 0, 0, 7, 0, 4, 0]
 ]
 let AddNum;
 let numbers;
@@ -24,14 +35,15 @@ let selectedNum;
 /*------------------------ Cached Element References ------------------------*/
 
 const boardEl = document.querySelector('#board')
-// const boxEl = document.querySelectorAll('.box');
 const numberEl = document.querySelectorAll('.number');
 const timeEl = document.querySelector('#time');
+const resetBtn = document.querySelector('#reset');
 
 /*-------------------------------- Functions --------------------------------*/
 
 const init = () => {
 
+    
 }
 
 const startGame = () => {
@@ -101,7 +113,6 @@ const updateBoard = (element) => {
         }
     }
 
-    // for(let k = 2; )
 }
 
 const selectNum = (event) => {
@@ -119,13 +130,19 @@ const startTime = () => {
     }, 1000) // each  1 sec
 }
 
+
+
+
 /*----------------------------- Event Listeners -----------------------------*/
 
 
+resetBtn.addEventListener('click', init)
 // selectNum()
 startGame()
 updateBoard()
 startTime()
+
+// init()
 
 
 
