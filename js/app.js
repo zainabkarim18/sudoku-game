@@ -63,20 +63,44 @@ const startGame = () => {
 }
 
 const updateBoard = (element) => {
-    console.log("number" + selectedNum);
+    // console.log("number" + selectedNum);
     if (selectedNum) {
+
+
         let currentRow = element.target.id[0]
-        console.log('row' + currentRow)
-        
+
+
         for (let i = 0; i < boardEsay[currentRow].length; i++) {
                 if (boardEsay[currentRow].includes(parseInt(selectedNum))) {
-                    console.log(boardEsay[currentRow].includes(parseInt(selectedNum)))
+                    // console.log(boardEsay[currentRow].includes(parseInt(selectedNum)))
                     return;
                 } else {
                     document.getElementById(element.target.id).textContent = selectedNum;
                     boardEsay[currentRow][parseInt(element.target.id)] = parseInt(selectedNum)
                 }
         }
+
+            // check column
+            // 1 2
+            let found = false;
+            let currentCol = element.target.id[1]
+        for (let j = 0; j < boardEsay.length; j++) {
+
+            if (boardEsay[j][currentCol] == parseInt(selectedNum)){
+                console.log("found at" + j + currentCol)
+                found = true;
+                return;
+            } 
+            
+        }
+
+        if (!found) {
+            console.log("add new num")
+            document.getElementById(element.target.id).textContent = selectedNum;
+            boardEsay[currentRow][currentCol] = parseInt(selectedNum)
+        }
+
+
     }
 }
 
