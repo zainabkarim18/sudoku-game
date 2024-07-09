@@ -48,9 +48,8 @@ const startGame = () => {
     for (let row = 0; row < 9; row++) {
         for (let col = 0; col < 9; col++) {
             box = document.createElement('div')
-            // box.id = row.toSting() + '-' + col.toString();
             box.id = row.toString() + col.toString();
-            //print array
+            //show array
             if (boardEsay[row][col] != 0) {
                 box.innerText = boardEsay[row][col];
             }
@@ -68,22 +67,23 @@ const updateBoard = (element) => {
 
 
         let currentRow = element.target.id[0]
+        let found = false;
+        let currentCol = element.target.id[1]
 
-
+        // check row
         for (let i = 0; i < boardEsay[currentRow].length; i++) {
                 if (boardEsay[currentRow].includes(parseInt(selectedNum))) {
-                    // console.log(boardEsay[currentRow].includes(parseInt(selectedNum)))
+                    found = true;
                     return;
-                } else {
-                    document.getElementById(element.target.id).textContent = selectedNum;
-                    boardEsay[currentRow][parseInt(element.target.id)] = parseInt(selectedNum)
                 }
+                // } else {
+                //     document.getElementById(element.target.id).textContent = selectedNum;
+                //     boardEsay[currentRow][parseInt(element.target.id)] = parseInt(selectedNum)
+                // }
+                
         }
 
             // check column
-            // 1 2
-            let found = false;
-            let currentCol = element.target.id[1]
         for (let j = 0; j < boardEsay.length; j++) {
 
             if (boardEsay[j][currentCol] == parseInt(selectedNum)){
@@ -99,9 +99,9 @@ const updateBoard = (element) => {
             document.getElementById(element.target.id).textContent = selectedNum;
             boardEsay[currentRow][currentCol] = parseInt(selectedNum)
         }
-
-
     }
+
+    // for(let k = 2; )
 }
 
 const selectNum = (event) => {
