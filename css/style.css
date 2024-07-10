@@ -112,11 +112,21 @@
   padding: 10px 20px;
   margin: 30px 5px;
   font-size: 40px;
-  background-color: #007bff;
   border-radius: 6px;
   color: #fff;
   border: none;
-  cursor: pointer;
+  cursor: pointer; 
+  border-style: dotted;
+}
+#eraseClick{
+      padding: 10px 20px;
+      margin: 30px 5px;
+      font-size: 40px;
+      background-color: #007bff;
+      border-radius: 6px;
+      color: #fff;
+      border: none;
+      cursor: pointer;
 }
 
 #reset:hover, #erase:hover{
@@ -126,10 +136,6 @@
 .selected{
   background-color: rgba(34, 31, 31, 0);
 }
-
-/* .col-row{
-  
-} */
 
 
 .modal {
@@ -213,7 +219,7 @@
 
 .modal-header {
   padding: 2px 16px;
-  background-color: #5cb85c;
+  background-color: rgba(108 , 122,137, 0.75);
   color: white;
 }
 
@@ -227,3 +233,13 @@
   color: white;
 }
 
+.disabledDiv{
+pointer-events: none;
+}
+
+.selectNumY{
+  background-color: #5cb85c;
+}
+.selectNumN {
+  background-color: rgba(108, 102, 137, 0.25);
+}
