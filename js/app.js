@@ -38,12 +38,28 @@ let winner = false;
 /*------------------------ Cached Element References ------------------------*/
 
 const boardEl = document.querySelector('#board')
-// const boxEl = document.querySelectorAll('.box');
 const numberEl = document.querySelectorAll('.number');
 const timeEl = document.querySelector('#time');
 const resetBtn = document.querySelector('#reset');
+const startEl = document.querySelector('.start');
+const containerEl = document.querySelector('.container');
+const startBtn = document.querySelector('#startGame');
+const easyBtn = document.querySelector('#easy'); 
+const miedumBtn = document.querySelector('#miedum'); 
+const hardBtn = document.querySelector('#hard'); 
 
 /*-------------------------------- Functions --------------------------------*/
+const startPlay = () =>{
+    startEl.style.display = 'none';
+    containerEl.style.display = 'block';
+    // let easy = false;
+    // // if(!easy){
+    // //     easy = true;
+    // //     easyBtn = easy;
+    // // }
+    startTime()
+}
+
 const checkForWinner = () => {
     // console.log("t");
 
@@ -79,9 +95,12 @@ const init = () => {
     mistakes=0;
     document.querySelector("#mistakes").innerHTML = mistakes;
     boardEsay = boardReset;
+    startEl.style.display = 'block';
+    containerEl.style.display = 'none';
     startGame()
     // updateBoard()
     startTime()
+
     // startGame()
 }
 
@@ -104,8 +123,18 @@ const startGame = () => {
             if (boardEsay[row][col] != 0) {
                 box.innerText = boardEsay[row][col];
             }
+            // if (row%3 == 0){
+            //     document.getElementById()
+            // }
             box.classList.add('box');
             boxEl = document.querySelector('.board').append(box);
+            if (col == 2 || col == 5 ){
+                box.style.borderRight = ' 3px solid #000'
+            }
+            if ( row == 2 || row == 5){
+                console.log(row);
+                box.style.borderBottom = ' 3px solid #000'
+            }
             box.addEventListener('click', updateBoard)
 
         }
@@ -172,7 +201,7 @@ const updateBoard = (element) => {
     if(winner==true){
         console.log("game ended");
     }
-    // for(let k = 2; )
+
 }
 
 const selectNum = (event) => {
@@ -184,13 +213,30 @@ const selectNum = (event) => {
 }
 
 const startTime = () => {
-    let sec = 300;
+    let sec;
+    if (easyBtn){
+        // console.log(easyBtn);
+        // console.log(miedumBtn);
+        sec = 300;
     timer = setInterval(() => {
-        let timeM = Math.floor(sec /60);
-        let timeS = sec%60;
+        // console.log(sec);
+        let timeM = Math.floor(sec / 60);
+        // console.log(timeM);
+        let timeS = sec % 60;
+        // console.log(timeM);
         timeEl.innerHTML = `${timeM}:${timeS}`;
         sec--;
     }, 1000) // each  1 sec
+    } else if (miedumBtn){
+        console.log('cc');
+        sec = 200;
+        timer = setInterval(() => {
+            timeM;
+            timeS;
+            timeEl.innerHTML = `${timeM}:${timeS}`;
+            sec--;
+        }, 1000) // each  1 sec
+    }
 }
 
 const erase =(element)=>{
@@ -208,7 +254,9 @@ const erase =(element)=>{
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-
+easyBtn.addEventListener('click', startPlay);
+miedumBtn.addEventListener('click', startPlay);
+hardBtn.addEventListener('click', startPlay);
 resetBtn.addEventListener('click', init)
 document.querySelector("#erase").addEventListener("click",function(){
     if(eraseNum==false)
@@ -216,10 +264,12 @@ document.querySelector("#erase").addEventListener("click",function(){
     else
     eraseNum=false;
 })
+
+
 // selectNum()
 startGame()
 updateBoard()
-startTime()
+
 // init()
 
 
