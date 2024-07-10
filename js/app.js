@@ -15,7 +15,7 @@ let boardEsay = [
     [6, 0, 0, 0, 0, 7, 0, 4, 0]
 ]
 
-let boardEasySolution = [
+let boardReset = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0],
     [5, 9, 8, 3, 0, 4, 6, 2, 0],
     [7, 6, 4, 1, 0, 0, 3, 8, 0],
@@ -32,18 +32,57 @@ let box;
 let timer;
 let boxEl;
 let selectedNum;
+let mistakes = 0;
+let eraseNum = false;
+let winner = false;
 /*------------------------ Cached Element References ------------------------*/
 
 const boardEl = document.querySelector('#board')
+// const boxEl = document.querySelectorAll('.box');
 const numberEl = document.querySelectorAll('.number');
 const timeEl = document.querySelector('#time');
 const resetBtn = document.querySelector('#reset');
 
 /*-------------------------------- Functions --------------------------------*/
+const checkForWinner = () => {
+    // console.log("t");
 
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+            // console.log("t");
+            let id = String(row)+String(col)
+            if(document.getElementById(id).textContent ==''){
+                return winner=false;
+            }
+                
+            
+        }
+    }
+    return winner=true;
+}
 const init = () => {
 
-    
+    console.log('reset')
+    AddNum = null;
+    numbers = null;
+    box = null;
+    clearInterval(timer);
+    boxEl = null;
+    selectedNum = null;
+    winner = false;
+    for(let i = 0;i<81;i++){
+        document.querySelector(".board").removeChild(document.querySelector(".board div"));
+    }
+    for(let i=0;i<9;i++){
+        document.querySelector(".numbers").removeChild(document.querySelector(".numbers div"));
+    }
+    mistakes=0;
+    document.querySelector("#mistakes").innerHTML = mistakes;
+    boardEsay = boardReset;
+    startGame()
+    // updateBoard()
+    startTime()
+    // startGame()
 }
 
 const startGame = () => {
@@ -75,16 +114,26 @@ const startGame = () => {
 
 const updateBoard = (element) => {
     // console.log("number" + selectedNum);
+    if (eraseNum==true){
+        erase(element)
+        eraseNum=false;
+    }
     if (selectedNum) {
 
-
+        
         let currentRow = element.target.id[0]
         let found = false;
         let currentCol = element.target.id[1]
-
+        let id = String(currentRow) + String(currentCol)
         // check row
         for (let i = 0; i < boardEsay[currentRow].length; i++) {
                 if (boardEsay[currentRow].includes(parseInt(selectedNum))) {
+                    if(eraseNum==false){
+                    mistakes++;
+                    }else{
+                        mistakes--;
+                    }
+                    document.querySelector("#mistakes").innerHTML = mistakes;
                     found = true;
                     return;
                 }
@@ -100,6 +149,12 @@ const updateBoard = (element) => {
 
             if (boardEsay[j][currentCol] == parseInt(selectedNum)){
                 console.log("found at" + j + currentCol)
+                if(eraseNum==false){
+                mistakes++;
+                }else{
+                    mistakes--;
+                }
+                document.querySelector("#mistakes").innerHTML = mistakes;
                 found = true;
                 return;
             } 
@@ -113,23 +168,41 @@ const updateBoard = (element) => {
         }
     }
 
+    checkForWinner();
+    if(winner==true){
+        console.log("game ended");
+    }
+    // for(let k = 2; )
 }
 
 const selectNum = (event) => {
     // console.log("log"+event);
+    eraseNum =false
     AddNum = event.target.textContent;
     selectedNum = AddNum;
     console.log('Clicked number:', AddNum);
 }
 
 const startTime = () => {
-    let sec = 0;
+    let sec = 300;
     timer = setInterval(() => {
-        timeEl.innerHTML = `00:${sec}`;
-        sec++;
+        let timeM = Math.floor(sec /60);
+        let timeS = sec%60;
+        timeEl.innerHTML = `${timeM}:${timeS}`;
+        sec--;
     }, 1000) // each  1 sec
 }
 
+const erase =(element)=>{
+    // if(mistakes>0){
+    //     mistakes--
+    // }
+    let currentRow = element.target.id[0]
+    let currentCol = element.target.id[1]
+    let id = String(currentRow) + String(currentCol)
+    document.getElementById(id).textContent = '';
+
+}
 
 
 
@@ -137,11 +210,16 @@ const startTime = () => {
 
 
 resetBtn.addEventListener('click', init)
+document.querySelector("#erase").addEventListener("click",function(){
+    if(eraseNum==false)
+        eraseNum =true;
+    else
+    eraseNum=false;
+})
 // selectNum()
 startGame()
 updateBoard()
 startTime()
-
 // init()
 
 
