@@ -49,11 +49,9 @@ The project itself was deployed and can be viewed [here](https://zainabkarim18.g
 
 # Future Features To Be Added
 
-To enhance the challenge, the numbers will be rearranged each time a new game starts.
-
-- The site will be converted to be fully responsive.
-- The site will be converted to responsive.
-
+- To enhance the challenge, the numbers will be rearranged each time a new game starts.
+- The web will be converted to be fully responsive.
+  
 ## Credits
 
 - Model: [w3schools](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal2)
